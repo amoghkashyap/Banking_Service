@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package banking;
+
+option java_package = "com.nokia.banking.proto";
+option java_outer_classname = "BankingService";
+option java_multiple_files = true;
+option go_package = "banking";
+
+service Bank {
+	//Used for creating new Account with the Bank
+	rpc CreateAccount(customerDetails) returns(bankResponse){}
+
+	//Used for closing existing Account with the Bank
+	rpc DeleteAccount(customerDetails) returns(bankResponse){}
+
+	//Used for amount deposit
+	rpc Deposit(authenticationDetails) returns(balanceResponse){}
+
+	//Used for amount withdrawal
+	rpc Withdraw(authenticationDetails) returns(balanceResponse){}	
+}
+
+message customerDetails{
+	string name = 1;
+	int32 age = 2;
+	string address = 3;
+	string emailId = 4;
+	string password = 5;
+}
+
+message bankResponse{
+	bool status = 1;
+	string response = 2;
+}
+
+message balanceResponse{
+	int32 balance = 1;
+	string response = 2;
+}
+
+message authenticationDetails{
+	string emailId = 1;
+	string password = 2;
+	int32 amount = 3;
+
+}
